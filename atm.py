@@ -3,7 +3,7 @@ from datetime import datetime, date
 
 # name = input("wat is your name? \n")
 allowedName = ["ibukunoluwa", "emmanuel", "kehinde"]
-allowedId = [1234, 2456, 7283]
+allowedPin = [1234, 2456, 7283]
 
 # if (name in allowedUsers):
 # password = input("Your password? \n")
@@ -53,26 +53,45 @@ def main():
 
     # ATM Processes
     while True:
+        print("\n1 - Register \t 2 - Login \t 3 - Cancel")
+        action = int(input("\nEnter your action: "))
 
-        # Reading id from user
-        id = int(input("\nEnter account Id: "))
+        if action == 1:
+            name = input("\nEnter your name: ")
+            id = int(input("\nEnter account pin: "))
+            while id < 1000 or id > 9999:
+                id = int(input("\nInvalid pin.. Re-enter: "))
 
-        if (id in allowedId):
-            print("You are in")
+        elif action == 3:
+            print("Thanks for choosing us as your bank")
+            exit()
 
-        # Loop till id is valid
-        while id < 1000 or id > 9999:
-            id = int(input("\nInvalid Id.. Re-enter: "))
+        elif action == 2:
+            name = input("\nEnter your name: ")
+            if (name in allowedName):
+                # Reading id from user
+                id = int(input("\nEnter account pin: "))
 
-        account_number = random.randint(1000000000, 100000000000)
+                #  Loop till id is valid
+                while (id not in allowedPin):
+                    id = int(input("\nInvalid Id.. Re-enter: "))
+        else:
+            print("nInvalid selection. Try again.")
+            continue
 
-        print("Your Account number is: ", account_number)
+        # account_number = random.randint(1000000000, 100000000000)
+
+        # print("Your Account number is: ", account_number)
 
         # Creating accounts
         accounts = []
         for i in range(1000, 9999):
             account = Account(i, 0)
             accounts.append(account)
+
+        account_number = random.randint(1000000000, 100000000000)
+
+        print("Your Account number is: ", account_number)
 
         # Iterating over account session
         while True:
@@ -94,6 +113,7 @@ def main():
             if selection == 1:
                 # Printing balance
                 print(accountObj.getBalance())
+                continue
 
             # Withdraw
             elif selection == 2:
@@ -104,6 +124,7 @@ def main():
 
                 if ver_withdraw == "Yes":
                     print("Verify withdraw")
+
                 else:
                     break
 
@@ -135,6 +156,7 @@ def main():
                     break
 
             elif selection == 4:
+                print("Account number: ", account_number)
                 print("Transaction is now complete.")
                 print("Transaction number: ", random.randint(10000, 1000000))
                 print("Current Interest Rate: ", accountObj.annualInterestRate)
